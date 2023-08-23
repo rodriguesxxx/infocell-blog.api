@@ -1,22 +1,14 @@
-import mysql.connector
-from mysql.connector import Error
+from database.mysql import MysqlDb
 
 class UserRepository:
     def __init__(self):
-        self.enginer = self.__create_conection
+        self.mysqlDb = MysqlDb()
+        self.cursor = self.mysqlDb.cursor
 
-    def __create_conection():
+    def findAll(self):
         try:
-            return mysql.connector.connect(
-                host="localhost",
-                user="root",
-                passwd="",
-                database="blog_infocell"
-            )
-        except Error as e:
-            return None
-    
-
-    
-user = UserRepository()
-print(user.enginer)
+            query = "SELECT * FROM users"
+            self.cursor.execute(query)
+            return self.cursor.fetchall()
+        except BaseException:
+            return "error"
