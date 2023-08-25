@@ -12,7 +12,7 @@ class MysqlDb:
                 host="localhost",
                 user="root",
                 passwd="",
-                database="studium"
+                database="infocell_blog"
             )
         except Error as e:
             return None

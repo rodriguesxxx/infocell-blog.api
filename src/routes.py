@@ -12,7 +12,7 @@ def index():
 @app.route("/users")
 def user():
     userController = UserController()
-    return userController.showUsers()
+    return userController.list()
 
 @app.route("/login", methods=["POST", ])
 def login():

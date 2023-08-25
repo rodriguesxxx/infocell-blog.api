@@ -7,3 +7,7 @@ class UserService:
     @staticmethod
     def list():
         return userRepository.findAll()
+    
+    @staticmethod
+    def add(user):
+        return userRepository.save(user)

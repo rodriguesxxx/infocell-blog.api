@@ -4,8 +4,7 @@ from service.user_service import UserService
 class UserController:
     def __init__(self):
         self.userService = UserService()
-
-    def showUsers(self):
+    def list(self):
         return self.userService.list()
 
 class RegisterController:
@@ -14,4 +13,4 @@ class RegisterController:
         self.__user = User( json_data['name'], json_data['username'], json_data['email'], json_data['password'] )
         
     def register(self):
-        pass
+        return self.userService.add(self.__user)
