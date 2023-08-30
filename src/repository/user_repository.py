@@ -10,6 +10,7 @@ class UserRepository:
             query = "SELECT * FROM users"
             self.cursor.execute(query)
             return self.cursor.fetchall()
+        
         except BaseException:
             return False
     def save(self, user):
@@ -18,5 +19,6 @@ class UserRepository:
             query = f"INSERT INTO users(name, username, email, password) VALUES({user.get_name()}, {user.get_username()}, {user.get_email()}, {user.get_password()})"
             self.cursor.execute(query)
             return True
+        
         except BaseException:
             return True
