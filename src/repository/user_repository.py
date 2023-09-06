@@ -3,7 +3,24 @@ from database.mysql import MysqlDb
 class UserRepository:
     def __init__(self):
         self.mysqlDb = MysqlDb()
+        self.cnx = self.mysqlDb.enginer
         self.cursor = self.mysqlDb.cursor
+
+          
+    def save(self, user):
+        
+        try:
+            query = "INSERT INTO users (name, username, email, password) VALUES (%s, %s, %s, %s)"
+            values = (user.get_name(), user.get_username(), user.get_email(), user.get_password())
+
+            self.cursor.execute(query, values)
+            return True
+        
+        except Exception as error:
+            self.cnx.rollback()
+            print(str(error))
+            return False
+        
 
     def findAll(self):
         try:
@@ -11,14 +28,12 @@ class UserRepository:
             self.cursor.execute(query)
             return self.cursor.fetchall()
         
-        except BaseException:
+        except Exception as error:
+            self.cnx.rollback()
+            print(str(error))
             return False
-    def save(self, user):
-        
-        try:
-            query = f"INSERT INTO users(name, username, email, password) VALUES({user.get_name()}, {user.get_username()}, {user.get_email()}, {user.get_password()})"
-            self.cursor.execute(query)
-            return True
-        
-        except BaseException:
-            return True
+
+    def findByUsername(username):
+        pass
+  
+    

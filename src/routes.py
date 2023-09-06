@@ -26,4 +26,4 @@ def register():
     raw_data = request.data.decode('utf-8')
     json_data = json.loads(raw_data)
     registerController = RegisterController(json_data)
-    return registerController.register()
+    return str(registerController.register())
