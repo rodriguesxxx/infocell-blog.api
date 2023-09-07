@@ -12,7 +12,6 @@ class UserRepository:
         try:
             query = "INSERT INTO users (name, username, email, password) VALUES (%s, %s, %s, %s)"
             values = (user.get_name(), user.get_username(), user.get_email(), user.get_password())
-
             self.cursor.execute(query, values)
             return True
         
@@ -33,7 +32,18 @@ class UserRepository:
             print(str(error))
             return False
 
-    def findByUsername(username):
-        pass
+    def findByCredential(self, credential):
+        try:
+            
+            query = "SELECT * FROM users WHERE username = %s OR email = %s"
+            values = (credential, credential)
+            
+            self.cursor.execute(query, values)
+            return self.cursor.fetchone()
+        
+        except Exception as error:
+            self.cnx.rollback()
+            print(str(error))
+            return False
   
     

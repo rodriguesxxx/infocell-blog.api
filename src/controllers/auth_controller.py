@@ -5,8 +5,12 @@ userService = UserService()
 class UserController:
     def __init__(self):
         self.userService = UserService()
+
     def list(self):
         return self.userService.list()
+    
+    def search(self, credential):
+        return self.userService.search(credential)
 
 class RegisterController:
 

@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import json
 
 from controllers.auth_controller import UserController
@@ -7,14 +7,19 @@ from controllers.auth_controller import RegisterController
 
 app = Flask(__name__)
 
+userController = UserController()
+
 @app.route("/")
 def index():
     return "Welcome to Infocell Blog API"
 
 @app.route("/users")
 def user():
-    userController = UserController()
-    return userController.list()
+    return jsonify( userController.list() )
+
+@app.route("/users/<credential>")
+def search(credential):
+    return jsonify( userController.search(credential) )
 
 @app.route("/login", methods=["POST", ])
 def login():
