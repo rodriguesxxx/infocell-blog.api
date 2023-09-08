@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify
 import json
 
-from controllers.auth_controller import UserController
-from controllers.auth_controller import RegisterController
+from controllers.auth_controller import UserController, RegisterController, DeleteController
 
 
 app = Flask(__name__)
@@ -20,6 +19,11 @@ def user():
 @app.route("/users/<credential>")
 def search(credential):
     return jsonify( userController.search(credential) )
+
+@app.route("/users/delete/<id>", methods=["DELETE"])
+def delete(id):
+    deleteController = DeleteController(id)
+    return str(deleteController.delete())
 
 @app.route("/login", methods=["POST", ])
 def login():

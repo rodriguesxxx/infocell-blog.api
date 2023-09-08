@@ -20,7 +20,7 @@ class UserService:
                 }
             return data
         
-        return {}
+        return None
     
     @staticmethod
     def search(credential):
@@ -36,8 +36,19 @@ class UserService:
 
             return data 
         
-        return {}
+        return None
     
     @staticmethod
     def add(user):
-        return userRepository.save(user)
+        
+        if( UserService.search( user.get_email() ) == None):
+            if( UserService.search( user.get_name() ) == None ):
+                return userRepository.save(user)   
+            
+            return "The username is already registered"
+        return "The email is already registered"
+
+    @staticmethod
+    def delete(id):
+        return userRepository.delete(id)
+
